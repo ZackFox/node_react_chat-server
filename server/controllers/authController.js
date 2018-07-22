@@ -41,8 +41,49 @@ authController.signIn = (req, res) => {
     });
 };
 
-authController.signUp = (req, res) => {
-  const { username, email, password } = req.body;
+authController.signUp = async (req, res) => {
+  const { username, screenname, email, password, passwordConfirm } = req.body;
+  const errors = {};
+
+  if (username === "") {
+    errors.username = "Поле не заполнено";
+  } else {
+    const isUsernameExist = await User.findOne({ where: { username } });
+    if (isUsernameExist) {
+      errors.username = "Ник уже занят";
+    }
+  }
+
+  if (screenname === "") {
+    errors.screenname = "Поле не заполнено";
+  }
+
+  if (email === "") {
+    errors.email = "Поле не заполнено";
+  } else if (!email.includes("@")) {
+    errors.email = "Не верный формат";
+  } else {
+    const isEmailExist = await User.findOne({ where: { email } });
+    if (isEmailExist) {
+      errors.email = "Email уже занят";
+    }
+  }
+
+  if (password === "") {
+    errors.password = "Поле не заполнено";
+  } else if (password.length < 5) {
+    errors.password = "Пароль короткий";
+  }
+
+  if (passwordConfirm === "") {
+    errors.passwordConfirm = "Поле не заполнено";
+  } else if (passwordConfirm !== password) {
+    errors.passwordConfirm = "Пароли не совпадают";
+  }
+
+  if (Object.keys(errors).length) {
+    return res.status(403).json({ errors });
+  }
 
   const user = new User();
   user.username = username;
@@ -51,8 +92,7 @@ authController.signUp = (req, res) => {
   user
     .save()
     .then(newUser => {
-      console.log(newUser);
-      res.status(200).json({ message: "Done", user: newUser });
+      res.status(200).json({ status: "ok", user: newUser });
     })
     .catch(err => console.log(err));
 };
