@@ -25,7 +25,7 @@ authController.signIn = (req, res) => {
           .json({ status: "403", message: "wrong_password" });
       } else {
         const userData = {
-          userId: user.id,
+          id: user.id,
           username: user.username,
           screenname: user.screenname,
           email: user.email,

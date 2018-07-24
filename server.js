@@ -1,7 +1,7 @@
 const path = require("path");
-const http = require("http");
-const server = http.createServer(app);
-const io = require('socket.io');
+// const http = require("http");
+// const server = http.createServer(app);
+const io = require("socket.io");
 const express = require("express");
 const bodyParser = require("body-parser");
 const models = require("./server/models");
@@ -17,14 +17,14 @@ app.use("/api/v1", routes);
 
 models.sequelize
   .authenticate()
-  .then(() => {    
+  .then(() => {
     console.log(`Sequelize connected to database`);
   })
   .catch(err => {
     console.error("Unable to connect to the database:", err);
   });
 
-app.listen(app.get("port"), ()=>{
+app.listen(app.get("port"), () => {
   console.log(`Server is started on port ${app.get("port")}`);
 });
 

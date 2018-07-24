@@ -1,10 +1,15 @@
 const express = require("express");
-const authController = require("../controllers/authController");
-const verifyToken = require("../helpers/verifyToken.js");
 const router = express.Router();
 
-router.post("/signin", authController.signIn);
-router.post("/user", verifyToken, authController.getAuthenticatedUser);
+const authController = require("../controllers/authController");
+const chatController = require("../controllers/chatController");
+
+const verifyToken = require("../helpers/verifyToken.js");
+
 router.post("/signup", authController.signUp);
+router.post("/signin", authController.signIn);
+router.get("/user", verifyToken, authController.getAuthenticatedUser);
+
+router.get("/rooms", verifyToken, chatController.getRooms);
 
 module.exports = router;
