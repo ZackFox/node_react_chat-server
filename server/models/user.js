@@ -16,7 +16,7 @@ module.exports = (sequelize, DataType) => {
       password: DataType.STRING,
       avatar: DataType.STRING,
     },
-    { underscored: true },
+    // { underscored: true },
   );
 
   // hashing password

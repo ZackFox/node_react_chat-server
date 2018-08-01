@@ -11,7 +11,7 @@ module.exports = (sequelize, DataType) => {
       private: DataType.BOOLEAN,
       avatar: DataType.STRING,
     },
-    { underscored: true },
+    // { underscored: true },
   );
 
   Room.associate = models => {

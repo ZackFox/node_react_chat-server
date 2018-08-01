@@ -4,6 +4,7 @@ const chatController = {};
 
 chatController.getRooms = (req, res) => {
   const userId = req.user.id;
+
   Room.findAll({
     attributes: ["id", "name", "screenname", "private", "avatar"],
     include: [

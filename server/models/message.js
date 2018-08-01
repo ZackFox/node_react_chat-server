@@ -4,13 +4,15 @@ module.exports = (sequelize, DataType) => {
     {
       userId: {
         type: DataType.INTEGER,
+        field: "user_id",
       },
       roomId: {
         type: DataType.INTEGER,
+        field: "room_id",
       },
       text: DataType.STRING,
     },
-    { underscored: true },
+    // { underscored: true },
   );
 
   Message.associate = models => {
