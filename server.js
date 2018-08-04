@@ -11,11 +11,11 @@ const app = express();
 app.set("port", process.env.PORT || 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "./public/")));
+app.use("/public/", express.static(path.join(__dirname, "public")));
 
 app.use("/api/v1", routes);
 app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/index.html"));
+  res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
 models.sequelize

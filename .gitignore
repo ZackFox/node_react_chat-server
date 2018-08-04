@@ -1,6 +1,7 @@
 node_modules/
 client/
 package-lock.json
+.env
 
 # testing
 /coverage
